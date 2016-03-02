@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calc.js</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <form action="">
+    <input type="text" class="input"> = <span class="output"></span>
+  </form>
+
+  <script>
+    $input = document.querySelector('.input');
+    $output = document.querySelector('.output');
+  </script>
+  <script src="assets/js/Calc.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    var app = new App(new Calc(), $input, $output);
+    app.init();
+  </script>
+</body>
+</html>
