@@ -17,7 +17,7 @@ Calc.prototype.calcul = function (input) {
     var tokens = this.tokenize(input);
     var nodes = this.prioritize(tokens);
 
-    return this.eval(nodes);
+    return this.evaluate(nodes);
 };
 
 Calc.prototype.tokenize = function (input) {
@@ -63,6 +63,8 @@ Calc.prototype.tokenize = function (input) {
                 console.log(token);
         }
     }
+
+    console.log('Tokens : ', tokens);
 };
 
 Calc.prototype.getNextToken = function (input) {
@@ -73,15 +75,33 @@ Calc.prototype.getNextToken = function (input) {
 
     var char = input[this.cursor++];
 
+    console.log("Char : ", char);
+
     // Number
-    while (char != undefined && !isNaN(char * 1)) {
-        token.value += char;
-        char = input[this.cursor++];
+    while (char != undefined && char >= '0' && char <= '9') {
+        if (char >= '0' && char <= '9') {
+            token.value += char;
+            char = input[this.cursor++];
+        }
     }
 
-    if(char == undefined || isNaN(char * 1)) {
+
+    if(token.value != '') {
         token.type = this.TYPE_NUMBER;
-        token.value = 1 * token.value;
+        token.value *= 1;
+        this.cursor--;
+
+        return token;
+    }
+
+    // Operator
+    if ([
+            this.TOKEN_OPERATOR_ADDITION, this.TOKEN_OPERATOR_SUBSTRACTION, this.TOKEN_OPERATOR_MULTIPLICATION,
+            this.TOKEN_OPERATOR_DIVISION
+        ].indexOf(char) != -1) {
+
+        token.type = this.TYPE_OPERATOR;
+        token.value = char;
         return token;
     }
 
@@ -92,7 +112,7 @@ Calc.prototype.prioritize = function (tokens) {
 
 };
 
-Calc.prototype.eval = function (nodes) {
+Calc.prototype.evaluate = function (nodes) {
 
 };
 
