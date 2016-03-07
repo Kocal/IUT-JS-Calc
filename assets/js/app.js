@@ -24,13 +24,13 @@ App.prototype.init = function () {
 };
 
 App.prototype.update = function () {
-    this.$output.innerHTML = this.calc.calcul($input.value);
+    this.$output.innerHTML = this.calc.calculate($input.value);
 };
 
 App.prototype.bindEvents = function () {
     var self = this;
 
-    this.$input.addEventListener('keyup', debounce(function () {
+    this.$input.addEventListener('input', debounce(function () {
         self.update();
     }, 250), false);
 };
